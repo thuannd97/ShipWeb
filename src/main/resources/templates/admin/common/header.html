@@ -1,0 +1,46 @@
+<div th:fragment="header" th:remove="tag"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+	<div class="topbar">
+		<nav class="navbar-custom">
+			<ul class="list-inline float-right mb-0">
+				<li class="list-inline-item dropdown notification-list"><a
+					class="nav-link dropdown-toggle arrow-none waves-effect"
+					th:href="@{/user/home}"> <i class="mdi mdi-home noti-icon"></i>
+				</a></li>
+
+				<li class="list-inline-item dropdown notification-list"><a
+					class="nav-link dropdown-toggle arrow-none waves-effect nav-user"
+					data-toggle="dropdown" href="#" role="button" aria-haspopup="false"
+					aria-expanded="false"> <!-- <img sec:authorize="isAuthenticated()"
+						th:src="@{/user/image/} + ${#authentication.getPrincipal().getAvatar()}"
+						class="rounded-circle" /> -->
+				</a>
+					<div class="dropdown-menu dropdown-menu-right profile-dropdown ">
+						<a class="dropdown-item" th:href="@{/user/profile}"><i
+							class="mdi mdi-account-circle m-r-5 text-muted"></i> <span
+							th:text="#{text.profile}"></span></a> <a class="dropdown-item"
+							th:href="@{/user/doi-mat-khau}"><i
+							class="mdi mdi-lock m-r-5 text-muted"></i> <span
+							th:text="#{text.change.password}"></span></a> <a
+							class="dropdown-item" th:href="@{/dang-xuat}"><i
+							class="mdi mdi-logout m-r-5 text-muted"></i><span
+							th:text="#{text.logout}"></span></a>
+					</div></li>
+			</ul>
+
+			<ul class="list-inline menu-left mb-0">
+				<li class="list-inline-item">
+					<button type="button"
+						class="button-menu-mobile open-left waves-effect">
+						<i class="ti-list"></i>
+					</button>
+				</li>
+				<li class="hide-phone list-inline-item app-search">
+					<h3 class="page-title" th:text="#{app}"></h3>
+				</li>
+			</ul>
+			<div class="clearfix"></div>
+		</nav>
+	</div>
+</div>

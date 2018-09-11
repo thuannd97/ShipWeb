@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport" />
+<title layout:title-pattern="$CONTENT_TITLE | $LAYOUT_TITLE" th:text="#{app}"></title>
+<meta th:content="#{page.slogan}" name="description" />
+<meta content="linkin.vn" name="author" />
+<link rel="shortcut icon" th:href="@{/user/images/logo.png}" type="image/png" />
+<link th:href="@{/user/css/bootstrap.min.css}" rel="stylesheet" type="text/css" />
+<link th:href="@{/user/css/icons.css}" rel="stylesheet" type="text/css" />
+<link th:href="@{/user/css/style.css}" rel="stylesheet" type="text/css" />
+<link th:href="@{/user/plugins/datatables/dataTables.bootstrap4.min.css}" rel="stylesheet" type="text/css" />
+<link th:href="@{/user/plugins/datatables/buttons.bootstrap4.min.css}" rel="stylesheet" type="text/css" />
+<link th:href="@{/user/css/jquery.datetimepicker.css}" rel="stylesheet" type="text/css">
+<!-- jQuery  -->
+<script th:src="@{/user/js/jquery.min.js}"></script>
+<script th:src="@{/user/js/popper.min.js}"></script>
+<script th:src="@{/user/js/bootstrap.min.js}"></script>
+<script th:src="@{/user/js/modernizr.min.js}"></script>
+<script th:src="@{/user/js/detect.js}"></script>
+<script th:src="@{/user/js/fastclick.js}"></script>
+<script th:src="@{/user/js/jquery.slimscroll.js}"></script>
+<script th:src="@{/user/js/jquery.blockUI.js}"></script>
+<script th:src="@{/user/js/waves.js}"></script>
+<script th:src="@{/user/js/jquery.nicescroll.js}"></script>
+<script th:src="@{/user/js/jquery.scrollTo.min.js}"></script>
+<script th:src="@{/user/js/jquery.datetimepicker.full.js}"></script>
+<!-- Required datatable js -->
+<script th:src="@{/user/plugins/datatables/jquery.dataTables.min.js}"></script>
+<script th:src="@{/user/plugins/datatables/dataTables.bootstrap4.min.js}"></script>
+<script>
+	$.datetimepicker.setLocale('vi');
+	$(function() {
+		$('input.number').keyup(function(event) {
+
+			// skip for arrow keys
+			if (event.which >= 37 && event.which <= 40) return;
+
+			// format number
+			$(this).val(function(index, value) {
+				return formatNumber(value);
+			});
+		});
+		$('input.number').each(function(index, value) {
+			$(this).val(function(index, value) {
+				return formatNumber(value);
+			});
+		});
+	});
+	function formatNumber(value) {
+		return String(value)
+		.replace(/\D/g, "")
+		.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+	}
+	function getOnlyDigit(value) {
+		return String(value).replace(/[^0-9]/g, "");
+	}
+	function parseNumber() {
+		$('input.number').each(function(index, value) {
+			$(this).val(function(index, value) {
+				return getOnlyDigit(value);
+			});
+		});
+		return true;
+	}
+</script>
+</head>
+<body class="fixed-left">
+	<!-- Loader -->
+	<div id="preloader">
+		<div id="status">
+			<div class="spinner"></div>
+		</div>
+	</div>
+
+	<!-- Begin page -->
+	<div id="wrapper">
+		<div th:replace="admin/common/leftmenu::left-menu"></div>
+		<!-- Start right Content here -->
+		<div class="content-page">
+			<!-- Start content -->
+			<div class="content">
+				<div th:replace="admin/common/header::header"></div>
+				<div class="page-content-wrapper">
+					<div class="container-fluid">
+						<div layout:fragment="content">empty</div>
+					</div>
+				</div>
+			</div>
+			<div th:replace="admin/common/footer::footer"></div>
+		</div>
+	</div>
+	<!-- App js -->
+	<script th:src="@{/user/js/app.js}"></script>
+</body>
+</html>

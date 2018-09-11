@@ -1,0 +1,60 @@
+<div th:fragment="header" th:remove="tag"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+	<div class="header-bottom">
+		<div class="container">
+			<div class="hb-logo pull-left">
+				<a th:href="@{/}" th:title="#{menu.home.title}"> <img
+					th:src="@{/client/images/logo.png}" th:alt="#{menu.home.title}"
+					width="130">
+				</a>
+			</div>
+			<h1 class="h1-chipo hidden-xs" th:text="#{app}"></h1>
+			<div class="hb-navs pull-right">
+				<ul>
+					<li><a th:href="@{/}"><i class="fa fa-home"></i> <span
+							th:text="#{menu.home}" th:remove="tag"></span></a></li>
+					<li sec:authorize="!isAuthenticated()"><a
+						th:href="@{/dang-nhap}"><i class="fa fa-user"></i> <span
+							th:text="#{text.login}"></span> </a></li>
+					<li sec:authorize="!isAuthenticated()"><a
+						th:href="@{/dang-ky}"><i class="fa fa-user"></i> <span
+							th:text="#{text.register}"></span> </a></li>
+					<li sec:authorize="isAuthenticated()"><a
+						th:href="@{/dang-xuat}"><i class="fa fa-user"></i> <span
+							th:text="#{text.logout}" th:remove="tag"></span></a></li>
+					<li sec:authorize="isAuthenticated()"><a
+						th:href="@{/danh-sach-nguoi-dung}"> <i
+							class="fa fa-dashboard"></i> <span th:text="#{text.management}"
+							th:remove="tag"></span>
+					</a></li>
+				</ul>
+			</div>
+		</div>
+		<div class="mmenu">
+			<span class="menu-toggle"></span>
+			<div class="bg-1"></div>
+			<div class="bg-2"></div>
+			<nav class="toggle-navbar">
+				<span class="close-btn"></span>
+				<div class="nav">
+					<ul>
+						<li><a th:href="@{/}"><i class="fa fa-home"></i> <span
+								th:text="#{menu.home}" th:remove="tag"></span></a></li>
+						<li sec:authorize="isAuthenticated()"><a
+							th:href="@{/user/chuyen-hoat-dong}"> <i
+								class="fa fa-dashboard"></i> <span th:text="#{text.management}"
+								th:remove="tag"></span>
+						</a></li>
+						<li sec:authorize="!isAuthenticated()"><i class="fa fa-lock"></i>
+							<a th:href="@{/dang-nhap}"><span th:text="#{text.login}"></span>
+						</a></li>
+						<li sec:authorize="isAuthenticated()"><a
+							th:href="@{/dang-xuat}"><i class="fa fa-user"></i> <span
+								th:text="#{text.logout}" th:remove="tag"></span></a></li>
+					</ul>
+				</div>
+			</nav>
+		</div>
+	</div>
+</div>

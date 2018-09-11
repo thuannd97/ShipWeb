@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="client/common/template">
+<head>
+<meta charset="UTF-8" />
+<title th:text="#{page.slogan}"></title>
+</head>
+<body>
+	<div layout:fragment="content" th:remove="tag">
+		<div class="box ">
+			<div class="title-bg bg-tit3">
+				<h2 class="text-24 text-transform" th:text="#{page.slogan}">Chiết
+					khấu cà thẻ ưu đãi và linh hoạt</h2>
+			</div>
+			<div class="container">
+				<div class="cost-all">
+					<ul>
+						<li>
+							<div class="cost-detail">
+								<div class="cd-img">
+									<a href="#"><span id="cd1"></span></a>
+								</div>
+								<div class="cd-text">
+									<a href="#"><label>Kích hoạt bảo hành</label></a>
+									<p></p>
+								</div>
+							</div>
+						</li>
+						<li>
+							<div class="cost-detail">
+								<div class="cd-img">
+									<a href="#"><span id="cd2"></span></a>
+								</div>
+								<div class="cd-text">
+									<label><a href="#">Tra cứu bảo hành</a></label>
+									<p></p>
+								</div>
+							</div>
+						</li>
+						<li>
+							<div class="cost-detail">
+								<div class="cd-img">
+									<a href="#"><span id="cd3"></span></a>
+								</div>
+								<div class="cd-text">
+									<a href="#"><label>Đăng nhập hệ thống</label></a>
+									<p></p>
+								</div>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="box ">
+			<div class="title-df">
+				<h2 class="text-24 text-transform">Hệ thống quản lý thông minh</h2>
+			</div>
+			<div class="container">
+				<div class="system-all">
+					<ul>
+						<li>
+							<div class="system-detail">
+								<div class="sys-img">
+									<span id="sys1"></span>
+								</div>
+								<div class="sys-text">
+									<label>Quản lý giao dịch Online<br>thuận tiện
+									</label>
+								</div>
+							</div>
+						</li>
+						<li>
+							<div class="system-detail">
+								<div class="sys-img">
+									<span id="sys2"></span>
+								</div>
+								<div class="sys-text">
+									<label>Hỗ trợ mạng lưới bán hàng<br>rộng khắp Mạng
+										xã hội
+									</label>
+								</div>
+							</div>
+						</li>
+						<li>
+							<div class="system-detail">
+								<div class="sys-img">
+									<span id="sys3"></span>
+								</div>
+								<div class="sys-text">
+									<label>Hỗ trợ dịch vụ xử lý thẻ cào<br>tiền nhanh
+										tới tay người mua bán
+									</label>
+								</div>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

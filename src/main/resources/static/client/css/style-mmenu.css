@@ -1,0 +1,119 @@
+/*Created by nktquan@gmail.com on 7/8/16.*/
+
+body {
+    position: relative;
+    overflow-x: hidden;
+} 
+.menu-toggle{
+
+    width: 40px;
+    height: 40px;
+    background: url("../images/menu-toggle.png") no-repeat center;
+    position: absolute;
+    top: 5px;
+    left: 9px;
+    cursor: pointer;
+    z-index: 999;
+}
+.toggle-navbar{
+    width: 310px;
+    height: 100vh;
+    position: fixed;
+    background: #fff;
+    overflow: auto;
+    top: 0;
+    right: -310px;
+    padding: 80px 40px 40px;
+    z-index: 999;
+    transition: all 0.3s;
+    -o-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    -webkit-transition: all 0.3s;
+    -ms-transition: all 0.3s;
+}
+.toggle-navbar .close-btn{
+    display: block;
+    width: 40px;
+    height: 40px;
+    background: url("../images/menu-close.png") no-repeat center;
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    cursor: pointer;
+}
+.toggle-navbar .nav{}
+.toggle-navbar .nav ul{
+    padding-left: 0;
+    margin-bottom: 0;
+}
+.toggle-navbar .nav ul li{
+    list-style: none;
+    padding-bottom: 10px;
+}
+.toggle-navbar .nav ul li a{ 
+    color: #2c2b1e;
+}
+.toggle-navbar .login-box{
+    margin: 40px 0 120px;
+}
+.toggle-navbar .login-box:after{
+    content: '';
+    display: block;
+    clear: both;
+}
+.toggle-navbar .login-box .login{
+    font-weight: bold;
+    font-size: 24px;
+    width: 50%;
+    float: left;
+}
+.toggle-navbar .login-box .lang{
+    font-weight: bold;
+    width: 50%;
+    float: left;
+    text-align: center;
+    padding-top: 8px;
+}
+.toggle-navbar .login-box a{
+    color: #2c2b1e;
+}
+.toggle-navbar .other{}
+.toggle-navbar .other ul{
+    padding-left: 0;
+    margin-bottom: 30px;
+}
+.toggle-navbar .other ul li{
+    list-style: none;
+    padding: 10px 0;
+}
+.toggle-navbar .other ul li:first-child{
+    color: rgba(44,43,30,0.65);
+}
+.toggle-navbar .other ul li a{
+    font-weight: bold;
+    color: #2c2b1e;
+} 
+.bg-2{
+    position: fixed;
+    width: 100%;
+    top: 0;
+    bottom: 0;
+    right: -100%;
+    background: rgba(0,0,0,0.25);
+    transition: all 0.7s;
+    -o-transition: all 0.7s;
+    -moz-transition: all 0.7s;
+    -webkit-transition: all 0.7s;
+    -ms-transition: all 0.7s;
+    z-index: 9;
+}
+body.menu-open{
+    overflow-y: hidden;
+}
+body.menu-open .toggle-navbar{
+    left: 0;
+} 
+body.menu-open .bg-2{
+    left: 0;
+}
+

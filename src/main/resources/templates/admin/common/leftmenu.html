@@ -1,0 +1,58 @@
+<div th:fragment="left-menu" th:remove="tag"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+	<div class="left side-menu">
+		<button type="button"
+			class="button-menu-mobile button-menu-mobile-topbar open-left waves-effect">
+			<i class="ti-close"></i>
+		</button>
+		<!-- LOGO -->
+		<div class="topbar-left" style="overflow: auto; height: 100%">
+			<div class="text-center">
+				<a th:href="@{/}" class="logo"><img
+					th:src="@{/user/images/logo.png}" width="80%" /></a>
+			</div>
+
+			<!-- <div class="sidebar-inner slimscrollleft">
+				<div class="user-details">
+					<div class="text-center">
+						<img sec:authorize="isAuthenticated()"
+							th:src="@{/user/image/} + ${#authentication.getPrincipal().getAvatar()}"
+							class="rounded-circle" />
+					</div>
+					<div class="user-info" sec:authorize="isAuthenticated()">
+						<h4 class="font-16 text-primary"
+							sec:authentication="principal.name"></h4>
+						<h4 class="font-16 text-primary"
+							sec:authentication="principal.username"></h4>
+						<span class="text-danger user-status"><span
+							sec:authentication="principal.balanceStr"></span> đ</span> <a
+							th:href="@{/user/profile/refresh}"><img
+							th:src="@{/user/images/refresh.png}"
+							style="width: 35px; height: auto"></a>
+					</div>
+				</div> -->
+
+				<div id="sidebar-menu">
+					<ul>
+						<li sec:authorize="hasAnyRole('ROLE_ADMIN')"><a th:href="@{/admin/users}" class="waves-effect">
+								<i class="ti-list"></i> <span th:text=#{admin.quanly.title}>
+							</span>
+						</a></li>
+						<li sec:authorize="hasAnyRole('ROLE_ADMIN')"><a th:href="@{/admin/add-amount}"
+							class="waves-effect"> <i class="ti-thumb-up"></i> <span
+								th:text=#{admin.naptien.title}> </span>
+						</a></li>
+						<li><a class="waves-effect" th:href="@{/admin/post}"><i
+								class="ti-power-off"></i><span th:text="#{admin.baidang.title}"></span></a>
+						</li>
+
+						<li><a class="waves-effect" href="#">Hotline:<span
+								th:remove="tag" th:text="#{hotline}"></span></a></li>
+					</ul>
+				</div>
+				<div class="clearfix"></div>
+			</div>
+		</div>
+	</div>
+</div>

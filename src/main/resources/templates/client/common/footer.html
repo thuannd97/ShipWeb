@@ -1,0 +1,43 @@
+<div th:fragment="footer" th:remove="tag" xmlns:th="http://www.thymeleaf.org">
+	<footer>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-5">
+					<div class="footer-address">
+						<img width="130" th:src="@{/client/images/logo.png}">
+						<p>
+							<strong>Address: </strong>Hà Nội
+						</p>
+						<p>
+							<strong>Hotline: </strong> <span th:remove="tag" th:text="#{hotline}"></span>
+						</p>
+						<p>
+							<strong>Email: </strong> <span th:remove="tag"  th:text="#{email}"></span>
+						</p>
+					</div>
+				</div>
+				<div class="col-md-2">
+					<ul>
+						<li><label>Giới thiệu</label></li>
+						<li><a href="">Về chúng tôi</a></li>
+						<li><a href="">Quy định và chính sách</a></li>
+					</ul>
+				</div>
+				<div class="col-md-3">
+					<ul>
+						<li><label>Hướng dẫn</label></li>
+						<li><a href="">Hướng dẫn mua bán</a></li>
+						<li><a href="">Biểu phí dịch vụ</a></li>
+					</ul>
+				</div>
+				<div class="col-md-2">
+					<ul>
+						<li><label>Liên hệ</label></li>
+						<li><a href="" rel="noffollow">Liên hệ với chúng tôi</a></li>
+						<li><a href="" rel="noffollow">Câu hỏi thường gặp</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</footer>
+</div>

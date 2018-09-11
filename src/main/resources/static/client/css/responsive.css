@@ -1,0 +1,193 @@
+@media (max-width: 1199px){
+	.service-all ul li .service-detail .sd-img{
+		float: none;
+		margin: 0 auto;
+		margin-bottom: 10px;
+	}
+	.service-all ul li .service-detail .sd-text{
+		margin-left: 0;
+		text-align: center;
+	}
+}
+@media (max-width: 991px){
+	.slide-banner::before,
+	.slide-banner::after{
+		height: 529px;
+	}
+	.header-top ul li{
+		width: 100%;
+	}
+	.header-top ul li ul.register{
+		width: 100%; 
+	}
+	.header-top ul li ul.register li {
+	    float: left;
+		width: auto;
+		margin: 0;
+	}
+	.header-top ul li p{ 
+		margin-bottom: 5px;
+	}
+	.header-top ul li .input-group {
+		padding: 0;
+	}
+	.header-bottom .hb-navs ul li{
+		padding: 10px 14px;
+	}
+	.header-bottom .hb-logo {
+	    width: 100%;
+	    text-align: center;
+	}
+	.slide-step ul li{
+		width: 50%;
+		margin-bottom: 20px;
+	}
+	footer .container{
+		width: 100%
+	}
+	footer ul li ul li{
+		width: 100% !important;
+	}
+	.procedure-detail .line-step span{
+		display: none;
+	}
+	.service-all ul li .service-detail .sd-text label br{
+		display: none;
+	}
+	.service-all ul li .service-detail .sd-text p br{
+		display: none;
+	}
+	.service-all ul li .service-detail .sd-text p{
+		font-size: 12px;
+	}
+	.padding{
+		padding: 100px 15px;
+	}
+	.sign-up{
+		width: 100%;
+	}
+}
+@media (max-width: 767px){
+	.slide-banner::before, .slide-banner::after,.main .owl-carousel .owl-nav .owl-prev, .main .owl-carousel .owl-nav .owl-next{
+		display: none;
+	}
+	.faq-all {
+	    width: 100%;
+	    margin: 0 auto;
+	    padding: 50px 15px;
+	}
+}
+@media (max-width: 676px){
+	.header-bottom .hb-navs ul li a{
+		font-size: 12px;
+	}  
+	.hb-navs{
+		display: none !important;
+	}
+	.system-all ul li,.service-all ul li {
+	    width: 50%;
+	    float: none;
+	    padding-right: 20px;
+	    margin: 0 auto;
+	    margin-bottom: 20px;
+	} 
+}
+@media (max-width: 640px){
+	.menu-toggle {
+		display: block; 
+	}
+	.box-agency ul li{
+		width: 50%;
+		margin-bottom: 20px;
+	}
+	.procedure-detail{
+		width: 50%;
+	} 
+}
+@media (max-width: 533px){ 
+	footer ul li {
+	    float: left;
+	    width: 100%; 
+	} 
+	.cost-all ul li {
+	    width: 100%;
+	    float: left;
+	} 
+	.text-36 {
+	    font-size: 20px;
+	}
+	.system-all ul li, .service-all ul li{
+		width:80%
+	}
+	.su-content ul li{
+		width: 100%;
+		padding-right: 0
+	}
+	footer { 
+	    padding: 15px 0;
+	}
+}
+@media (max-width: 480px){
+	.slide-step ul li{
+		width: 100%
+	}
+	.menu-toggle {
+	    /*top: 163px !important;*/
+	} 
+	
+}
+@media (max-width: 414px){
+	.menu-toggle {
+	    /*top: 143px !important;*/
+	} 
+	.cost-all ul li {
+	    width: 100%;
+	    float: left;
+	    margin-bottom: 20px;
+	}
+	.sign-in{
+		width: 100%;
+		
+	}
+}
+@media (max-width: 360px){
+	.menu-toggle {
+	   /* top: 143px !important;*/
+	} 
+	.box-agency ul li{
+		width: 100%;
+	}
+	.system-all ul li, .service-all ul li {
+	    width: 100%;
+	}
+	.sign-in{
+		padding: 15px 20px;
+	}
+}
+@media (max-width: 320px){
+	.menu-toggle {
+	   /* top: 143px !important;*/
+	} 
+	.procedure-detail{
+		width: 100%;
+	}
+	.ad-btn button{
+		margin-right: 0;
+		margin-bottom: 10px;
+	}
+	.header-top ul li ul.register li a{
+		font-size: 11px;
+	}
+	.text-36 {
+	    font-size: 15px;
+	}
+	.text-24 {
+	    font-size: 13px;
+	}
+	.su-title label{
+		font-size: 12px;
+	}
+	.slide-banner .slide-btn button {
+		margin-bottom: 10px;
+	}
+}

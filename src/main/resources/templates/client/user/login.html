@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="client/common/template">
+<head>
+<meta charset="UTF-8" />
+<title th:text="#{text.login}"></title>
+</head>
+<body>
+	<div layout:fragment="content" th:remove="tag">
+		<div class="box bg-sign-in padding">
+			<div class="sign-in">
+				<div class="si-title">
+					<h3 th:text="#{text.login}"></h3>
+				</div>
+				<div class="si-content">
+					<form th:action="@{/dang-nhap}" id="loginForm" name="form"
+						method="post">
+						<div class="alert alert-danger alert-dismissible fade in"
+							th:if="${msg}">
+							<button type="button" class="close" data-dismiss="alert"
+								aria-label="Close">
+								<span aria-hidden="true">×</span>
+							</button>
+							<p th:text="${msg}"></p>
+						</div>
+						<div class="form-group">
+							<label class="control-label"><b th:text="#{user.email}"></b></label>
+							<input th:placeholder="#{user.email}" class="form-control"
+								required="required" name="email" type="text">
+						</div>
+						<div class="form-group">
+							<label class="control-label"><b
+								th:text="#{user.password}"></b></label> <input required="required"
+								class="form-control" th:placeholder="#{user.password}"
+								name="password" type="password">
+						</div>
+						<div class="checkbox">
+							<label> <input type="checkbox" name="remember-me"
+								th:text="#{text.remember}">
+							</label> <a th:href="@{/quen-mat-khau}" class="pull-right"
+								th:text="#{text.forgot.password.question}"></a>
+						</div>
+						<div class="form-group">
+							<button type="submit" class="btn btn-danger" th:text="#{text.login}"></button>
+						</div>
+						<div class="form-group">
+							<p>
+								<span th:text="#{text.no.account}" th:remove="tag"></span> <a
+									th:href="@{/dang-ky}" th:text="#{text.register.now}"></a>
+							</p>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
