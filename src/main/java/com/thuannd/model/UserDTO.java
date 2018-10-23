@@ -11,9 +11,14 @@ public class UserDTO implements Serializable {
 	private String password;
 	private Integer roleId;
 	private String avatar;
-	
+
 	public UserDTO() {
 		super();
+	}
+
+	public UserDTO(Long id) {
+		super();
+		this.id = id;
 	}
 
 	public Long getId() {

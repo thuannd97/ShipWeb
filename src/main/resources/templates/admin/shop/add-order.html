@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="admin/common/template">
+<head>
+<meta charset="ISO-8859-1"/>
+<title>Đăng đơn hàng</title>
+</head>
+<body>
+	<div layout:fragment="content" th:remove="tag">
+		<div class="x_content">
+			<br />
+			<form th:action="@{/shop/add-order}" method="post"
+				th:object="${orderDTO}" id="demo-form2" data-parsley-validate
+				class="form-horizontal form-label-left">
+
+				<div class="form-group">
+					<label for="middle-name"
+						class="control-label col-md-3 col-sm-3 col-xs-12"
+						th:text="#{order.content}"></label>
+					<div class="col-md-6 col-sm-6 col-xs-12">
+						<input id="middle-name" class="form-control col-md-7 col-xs-12"
+							type="text" name="middle-name" th:field="*{content}">
+							<div class="help-block text-danger" th:errors="*{fromAdd}"></div>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="control-label col-md-3 col-sm-3 col-xs-12"
+						for="first-name" th:text="#{order.fromAdd}"> <span
+						class="required">*</span>
+					</label>
+					<div class="col-md-6 col-sm-6 col-xs-12">
+						<input type="text" id="first-name" required="required"
+							class="form-control col-md-7 col-xs-12" th:field="*{fromAdd}">
+							<div class="help-block text-danger" th:errors="*{fromAdd}"></div>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-md-3 col-sm-3 col-xs-12"
+						for="last-name" th:text="#{order.toAdd}"> <span
+						class="required">*</span>
+					</label>
+					<div class="col-md-6 col-sm-6 col-xs-12">
+						<input type="text" id="last-name" name="last-name"
+							required="required" class="form-control col-md-7 col-xs-12"
+							th:field="*{toAdd}">
+							<div class="help-block text-danger" th:errors="*{toAdd}"></div>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="middle-name"
+						class="control-label col-md-3 col-sm-3 col-xs-12"
+						th:text="#{order.fee}"></label>
+					<div class="col-md-6 col-sm-6 col-xs-12">
+						<input id="middle-name" class="form-control col-md-7 col-xs-12"
+							type="text" name="middle-name" th:field="*{fee}">
+							<div class="help-block text-danger" th:errors="*{fee}"></div>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="middle-name"
+						class="control-label col-md-3 col-sm-3 col-xs-12"
+						th:text="#{order.addvanceMoney}"></label>
+					<div class="col-md-6 col-sm-6 col-xs-12">
+						<input id="middle-name" class="form-control col-md-7 col-xs-12"
+							type="text" name="middle-name" th:field="*{addvanceMoney}">
+							<div class="help-block text-danger" th:errors="*{addvanceMoney}"></div>
+					</div>
+				</div>
+				<div class="ln_solid"></div>
+				<div class="form-group">
+					<div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+						<button class="btn btn-primary" type="submit"
+							th:text="#{text.button.add}"></button>
+						<!-- <button class="btn btn-primary" type="reset"
+							th:text=#{text.button.reset}></button> -->
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</body>
+</html>

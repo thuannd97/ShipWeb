@@ -33,26 +33,39 @@
 					</div>
 				</div> -->
 
-				<div id="sidebar-menu">
-					<ul>
-						<li sec:authorize="hasAnyRole('ROLE_ADMIN')"><a th:href="@{/admin/users}" class="waves-effect">
-								<i class="ti-list"></i> <span th:text=#{admin.quanly.title}>
-							</span>
-						</a></li>
-						<li sec:authorize="hasAnyRole('ROLE_ADMIN')"><a th:href="@{/admin/add-amount}"
-							class="waves-effect"> <i class="ti-thumb-up"></i> <span
-								th:text=#{admin.naptien.title}> </span>
-						</a></li>
-						<li><a class="waves-effect" th:href="@{/admin/post}"><i
-								class="ti-power-off"></i><span th:text="#{admin.baidang.title}"></span></a>
-						</li>
+			<div id="sidebar-menu">
+				<ul>
+					<li sec:authorize="hasAnyRole('ROLE_ADMIN')"><a
+						th:href="@{/admin/users}" class="waves-effect"> <i
+							class="ti-list"></i> <span th:text=#{admin.management.user.title}>
+						</span>
+					</a></li>
+					<li sec:authorize="hasAnyRole('ROLE_ADMIN')"><a
+						th:href="@{/admin/nap-tien}" class="waves-effect"> <i
+							class="ti-list"></i> <span
+							th:text=#{admin.management.amount.title}> </span>
+					</a></li>
+					<li><a class="waves-effect" th:href="@{/shop/orders}"><i
+							class="ti-list"></i><span
+							th:text="#{admin.management.order.title}"></span></a></li>
+					<li sec:authorize="hasAnyRole('ROLE_SHOP')"><a
+						th:href="@{/shop/bao-cao}" class="waves-effect"> <i
+							class="ti-download"></i> <span th:text=#{shop.report}> </span>
+					</a></li>
+					<li sec:authorize="hasAnyRole('ROLE_SHIPPER')"><a
+						th:href="@{/shipper/bao-cao}" class="waves-effect"> <i
+							class="ti-download"></i> <span th:text=#{shipper.report}>
+						</span>
+					</a></li>
+					<li><a class="waves-effect" th:href="@{/dang-xuat}"><i
+							class="ti-power-off"></i><span th:text="#{text.logout}"></span></a></li>
 
-						<li><a class="waves-effect" href="#">Hotline:<span
-								th:remove="tag" th:text="#{hotline}"></span></a></li>
-					</ul>
-				</div>
-				<div class="clearfix"></div>
+					<li><a class="waves-effect" href="#">Hotline:<span
+							th:remove="tag" th:text="#{hotline}"></span></a></li>
+				</ul>
 			</div>
+			<div class="clearfix"></div>
 		</div>
 	</div>
+</div>
 </div>

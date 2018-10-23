@@ -80,6 +80,7 @@ public class UserDAOImpl implements UserDAO {
 		TypedQuery<User> typedQuery = entityManager.createQuery(criteriaQuery.select(root));
 		typedQuery.setFirstResult(searchUserDTO.getStart());
 		typedQuery.setMaxResults(searchUserDTO.getLength());
+
 		return typedQuery.getResultList();
 	}
 

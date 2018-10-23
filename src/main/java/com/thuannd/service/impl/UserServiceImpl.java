@@ -10,13 +10,13 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.thuannd.dao.UserDAO;
 import com.thuannd.entity.Role;
 import com.thuannd.entity.User;
+import com.thuannd.model.MyPrincipal;
 import com.thuannd.model.SearchUserDTO;
 import com.thuannd.model.UserDTO;
 import com.thuannd.service.UserService;
@@ -130,9 +130,11 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 		List<SimpleGrantedAuthority> authorities = new ArrayList<SimpleGrantedAuthority>();
 		authorities.add(new SimpleGrantedAuthority(userLocal.getRole().getName()));
 
-		UserDetails userDetails = new org.springframework.security.core.userdetails.User(userLocal.getEmail(),
-				userLocal.getPassword(), true, true, true, true, authorities);
-		return userDetails;
+		MyPrincipal myPrincipal = new MyPrincipal(userLocal.getEmail(), userLocal.getPassword(), true, true, true, true,
+				authorities);
+		myPrincipal.setId(userLocal.getId());
+		myPrincipal.setAvatar(userLocal.getAvatar());
+		return myPrincipal;
 	}
 
 }

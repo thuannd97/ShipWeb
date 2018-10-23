@@ -1,9 +1,15 @@
 package com.thuannd.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
@@ -19,6 +25,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.thuannd.model.SearchUserDTO;
 import com.thuannd.model.UserDTO;
@@ -62,13 +69,24 @@ public class UserController {
 	}
 
 	@PostMapping("/dang-ky")
-	public String register(@ModelAttribute("userDTO") UserDTO userDTO, Model model, BindingResult result) {
+	public String register(@Valid @ModelAttribute("userDTO") UserDTO userDTO, BindingResult result, Model model, @RequestParam("file") MultipartFile file) {
 		this.validate(userDTO, result);
 		if (result.hasErrors()) {
 			return "client/user/register";
 		} else {
-			userService.addUser(userDTO);
-			model.addAttribute("userDTO", userDTO);
+			try {
+				final String UPLOAD_FOLDER = "D:\\spring\\ship-web\\src\\main\\resources\\static\\images";
+				String avatar = userDTO.getEmail() + "-avatar.jpg";
+				Path pathAvatar = Paths.get(UPLOAD_FOLDER + File.separator + avatar);
+				Files.write(pathAvatar, file.getBytes());
+				
+				userDTO.setAvatar(avatar);
+				userService.addUser(userDTO);
+				model.addAttribute("userDTO", userDTO);
+			} catch (IOException e) {
+				e.printStackTrace();
+				return "client/user/register";
+			}
 			return "redirect:/";
 		}
 	}
@@ -77,11 +95,7 @@ public class UserController {
 		UserDTO userDTO = (UserDTO) object;
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "email", "error.msg.empty.user.email");
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password", "error.msg.empty.user.password");
-		// if
-		// (!userDTO.getEmail().matches("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\\\.[A-Z]{2,6}$"))
-		// {
-		// errors.rejectValue("email", "error.msg.invalid.email");
-		// }
+
 		if (userService.findUser(new SearchUserDTO(userDTO.getEmail())).size() > 0) {
 			errors.rejectValue("email", "error.msg.available.user.email");
 		}

@@ -4,12 +4,182 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorator="admin/common/template">
 <head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<meta charset="UTF-8" />
+<title th:text="#{admin.management.order.title}"></title>
 </head>
 <body>
 	<div layout:fragment="content" th:remove="tag">
-		<p>hfd</p>
+		<div class="row">
+			<div class="col-12">
+				<div class="card m-b-30">
+					<div class="card-body">
+						<div class="row">
+							<div class="col-md-6 col-sm-6">
+								<h4 class="mt-0 header-title"
+									th:text="#{admin.management.order.title}"></h4>
+							</div>
+							<div class="col-md-6 col-sm-6">
+								<a class="pull-right" th:href="@{/shop/add-order}"><img
+									th:src="@{/user/images/add.png}" height="30" /></a>
+							</div>
+						</div>
+						<hr />
+						<div class="table-responsive">
+							<table id="datatable" class="table table-bordered">
+								<thead>
+									<tr>
+										<th th:text="#{order.id}"></th>
+										<th th:text="#{order.content}"></th>
+										<th th:text="#{order.fromAdd}"></th>
+										<th th:text="#{order.toAdd}"></th>
+										<th th:text="#{order.addvanceMoney}"></th>
+										<th th:text="#{order.fee}"></th>
+										<th th:text="#{order.createdDate}"></th>
+										<th th:text="#{text.option}"></th>
+									</tr>
+								</thead>
+								<tfoot>
+									<tr>
+										<th th:text="#{order.id}"></th>
+										<th th:text="#{order.content}"></th>
+										<th th:text="#{order.fromAdd}"></th>
+										<th th:text="#{order.toAdd}"></th>
+										<th th:text="#{order.addvanceMoney}"></th>
+										<th th:text="#{order.fee}"></th>
+										<th th:text="#{order.createdDate}"></th>
+										<th th:text="#{text.option}"></th>
+									</tr>
+								</tfoot>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade" id="confirm-delete" tabindex="-1"
+			role="dialog" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header"
+						th:text="#{order.delete.confirm.message}"></div>
+					<div class="modal-body"></div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal"
+							th:text="#{text.no.title}"></button>
+						<a class="btn btn-danger btn-ok" style="color: white;"
+							th:text="#{text.delete}"></a>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<script type="text/javascript" th:inline="javascript">
+		var vietnameseUrl = [[@{/user/plugins/datatables/Vietnamese.json}]];
+	    var url = [[@{/shop/orders}]];
+	    var delUrl = [[@{/shop/delete/order}]];
+	    
+	    var csrf_token = [[${_csrf.token}]];
+	    var searchHolderText = [[#{order.search.holder}]];
+	    
+	    var id = "";
+	    var table;
+	    $(document).ready(function() {
+			table = $('#datatable').DataTable( {
+				"processing": true,
+		        "serverSide": true,
+		        "ajax": {
+		        	type:"POST",
+		            url: url,
+		            dataType: "json",
+		            contentType: "application/json",
+		            headers: {'X-CSRF-TOKEN': csrf_token},
+		            data: function ( d ) {
+		            	return JSON.stringify( d );
+		            }
+		        },
+		        "columns": [
+		        	{"data": "id"},
+					{"data": "content"},
+					{"data": "fromAdd"},
+					{"data": "toAdd"},
+					{"data": "addvanceMoney"},
+					{"data": "fee"},
+					{"data": "createdDate"},
+					{"data": "id"}
+		        ],
+		        "columnDefs": [
+					{
+				       "render": function ( data, type, row ) {
+				           return '<strong class="text-danger">'+ data + '</strong>';
+				       },
+				       "targets": 1
+				   },
+     		     	{
+   	                "render": function ( data, type, row ) {
+   	                    return '<strong class="text-primary">'+ data + '</strong>';
+   	                },
+   	                "targets": 2
+   	            },		
+   	        	{
+   	                "render": function ( data, type, row ) {
+   	                    return '<strong class="text-primary">'+ data + '</strong>';
+   	                },
+   	                "targets": 3
+   	            },
+   	        	{
+   	                "render": function ( data, type, row ) {
+   	                    return '<strong class="text-primary">'+ data + '</strong>';
+   	                },
+   	                "targets": 4
+   	            },		
+   	         	{
+   	                "render": function ( data, type, row ) {
+   	                    return '<strong class="text-primary">'+ data + '</strong>';
+   	                },
+   	                "targets": 5
+   	            },	
+	            {
+	                "render": function ( data, type, row ) {
+	                    var content = '<button id="editButt" class="btn btn-primary ti-pencil-alt"></button>'
+	                    +'<button class="btn btn-danger ti-trash" data-toggle="modal" data-target="#confirm-delete" data-fromAdd' + row.fromAdd+ '></button>'
+			            return content;
+	                },
+	                "orderable": false,
+	                "targets": 7
+	            }
+		        ],
+		        "language": {
+		            "url": vietnameseUrl,
+		            searchPlaceholder: searchHolderText
+		        }
+	        });
+			
+			$('#datatable tbody').on( 'click', 'button', function () {
+				var data = table.row( $(this).parents('tr') ).data();
+				id = data.id;
+				if ($(this).prop("id") == 'editButt') {
+					window.location.href = editUrl + "/" + id;
+				}
+		    } );
+			
+			$('#confirm-delete').on('click', '.btn-ok', function(e) {
+				  var $modalDiv = $(e.delegateTarget);
+				  $modalDiv.addClass('loading');
+				  $.get(delUrl + '/' + id).then(function() {
+				     $modalDiv.modal('hide').removeClass('loading');
+				     table.draw();
+				  });
+				});
+			
+			//triggered when modal is about to be shown
+			$('#confirm-delete').on('show.bs.modal', function(e) {
+			    //get data-id attribute of the clicked element
+			    var name = $(e.relatedTarget).data('fromAdd');
+			    //populate the textbox
+			    $(e.currentTarget).find('div.modal-body').html('<strong>' + name + '</strong>');
+			});
+	    });
+	</script>
 	</div>
 </body>
 </html>

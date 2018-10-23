@@ -23,15 +23,20 @@
 					<li sec:authorize="isAuthenticated()"><a
 						th:href="@{/dang-xuat}"><i class="fa fa-user"></i> <span
 							th:text="#{text.logout}" th:remove="tag"></span></a></li>
-					<li sec:authorize="isAuthenticated()"><a
-						th:href="@{/danh-sach-nguoi-dung}"> <i
+					<li sec:authorize="hasAnyRole('ROLE_SHOP')"><a
+						th:href="@{/shop/orders}"> <i
 							class="fa fa-dashboard"></i> <span th:text="#{text.management}"
+							th:remove="tag"></span>
+					</a></li>
+					<li sec:authorize="isAuthenticated()"><a
+						th:href="@{/orders/all}"> <i
+							class="fa fa-dashboard"></i> <span th:text="#{text.listOrderAll}"
 							th:remove="tag"></span>
 					</a></li>
 				</ul>
 			</div>
 		</div>
-		<div class="mmenu">
+		<!-- <div class="mmenu">
 			<span class="menu-toggle"></span>
 			<div class="bg-1"></div>
 			<div class="bg-2"></div>
@@ -55,6 +60,6 @@
 					</ul>
 				</div>
 			</nav>
-		</div>
+		</div> -->
 	</div>
 </div>

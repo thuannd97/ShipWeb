@@ -4,6 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.data.domain.AuditorAware;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -12,9 +15,13 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import com.thuannd.entity.User;
+import com.thuannd.service.impl.AuditorAwareImpl;
 import com.thuannd.utils.RoleEnum;
 
 @SpringBootApplication
+@EnableJpaRepositories
+@EnableJpaAuditing(auditorAwareRef = "auditorProvider")
 public class ShipWebApplication extends WebSecurityConfigurerAdapter {
 
 	@Autowired
@@ -24,15 +31,10 @@ public class ShipWebApplication extends WebSecurityConfigurerAdapter {
 		SpringApplication.run(ShipWebApplication.class, args);
 	}
 
-	@Bean
-	public PasswordEncoder encoder() {
-		return new BCryptPasswordEncoder();
-	}
-
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests().antMatchers("/admin/**").hasAnyRole(RoleEnum.ADMIN.getRoleName()).antMatchers("/")
-				.permitAll().antMatchers("/shop/**")
+				.permitAll().antMatchers("/dang-ky").permitAll().antMatchers("/shop/**")
 				.hasAnyRole(RoleEnum.ADMIN.getRoleName(), RoleEnum.SHOP.getRoleName()).antMatchers("/shipper/**")
 				.hasAnyRole(RoleEnum.ADMIN.getRoleName(), RoleEnum.SHIPPER.getRoleName()).antMatchers("/user/**")
 				.authenticated().anyRequest().authenticated().and().formLogin().loginPage("/dang-nhap")
@@ -47,6 +49,17 @@ public class ShipWebApplication extends WebSecurityConfigurerAdapter {
 				"/user/css/**", "/user/js/**", "/user/fonts/**", "/user/images/**", "/user/plugins/**");
 	}
 
+	@Bean
+	public PasswordEncoder encoder() {
+		return new BCryptPasswordEncoder();
+	}
+
+	// custom jpa auditing
+	@Bean
+	public AuditorAware<User> auditorProvider() {
+		return new AuditorAwareImpl();
+	}
+	
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth.userDetailsService(detailsService).passwordEncoder(encoder());

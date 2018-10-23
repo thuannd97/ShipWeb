@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="client/common/template">
+<head>
+<meta charset="UTF-8" />
+<title th:text="#{text.login}"></title>
+</head>
+<body>
+	<div layout:fragment="content" th:remove="tag">
+		<div class="row" style="margin-left: 400px; width: 700px; height: 100%;">
+			<div class="col-6">
+				<div class="card m-b-30">
+					<div class="card-body">
+						<div class="row">
+							<div class="col-md-6 col-sm-6">
+								<h4 class="mt-0 header-title"
+									th:text="#{admin.management.order.title}"></h4>
+							</div>
+						</div>
+						<hr />
+						<div class="table-responsive">
+							<table id="datatable" class="table table-bordered">
+								<thead>
+									<tr>
+										<th th:text="#{order.content}"></th>
+										<th th:text="#{order.addvanceMoney}"></th>
+										<th th:text="#{order.fee}"></th>
+										<th th:text="#{order.createdDate}"></th>
+										<th th:text="#{text.option}"></th>
+									</tr>
+								</thead>
+								<tfoot>
+									<tr>
+										<th th:text="#{order.content}"></th>
+										<th th:text="#{order.addvanceMoney}"></th>
+										<th th:text="#{order.fee}"></th>
+										<th th:text="#{order.createdDate}"></th>
+										<th th:text="#{text.option}"></th>
+									</tr>
+								</tfoot>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<script type="text/javascript" th:inline="javascript">
+		var vietnameseUrl = [[@{/user/plugins/datatables/Vietnamese.json}]];
+	    var url = [[@{/orders/all}]];
+	    
+	    var csrf_token = [[${_csrf.token}]];
+	    var searchHolderText = [[#{order.search.holder}]];
+	    
+	    var table;
+	    $(document).ready(function() {
+			table = $('#datatable').DataTable( {
+				"processing": true,
+		        "serverSide": true,
+		        "ajax": {
+		        	type:"POST",
+		            url: url,
+		            dataType: "json",
+		            contentType: "application/json",
+		            headers: {'X-CSRF-TOKEN': csrf_token},
+		            data: function ( d ) {
+		            	return JSON.stringify( d );
+		            }
+		        },
+		        "columns": [
+					{"data": "content"},
+					{"data": "addvanceMoney"},
+					{"data": "fee"},
+					{"data": "createdDate"},
+					{"data": "id"}
+		        ],
+		        "columnDefs": [
+					{
+				       "render": function ( data, type, row ) {
+				           return '<strong class="text-primary">'+ data + '</strong>';
+				       },
+				       "targets": 0
+				   },
+     		     	{
+   	                "render": function ( data, type, row ) {
+   	                    return '<strong class="text-danger">'+ data + '</strong>';
+   	                },
+   	                "targets": 1
+   	            },		
+   	        	{
+   	                "render": function ( data, type, row ) {
+   	                    return '<strong class="text-danger">'+ data + '</strong>';
+   	                },
+   	                "targets": 2
+   	            },
+   	        	{
+   	                "render": function ( data, type, row ) {
+   	                    return '<strong class="text-danger">'+ data + '</strong>';
+   	                },
+   	                "targets": 3
+   	            }
+		        ],
+		        "language": {
+		            "url": vietnameseUrl,
+		            searchPlaceholder: searchHolderText
+		        }
+	        });
+	    });
+	</script>
+	</div>
+</body>
+</html>

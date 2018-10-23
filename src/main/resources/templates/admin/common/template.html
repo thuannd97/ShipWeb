@@ -1,20 +1,31 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
 <meta charset="utf-8" />
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport" />
-<title layout:title-pattern="$CONTENT_TITLE | $LAYOUT_TITLE" th:text="#{app}"></title>
+<meta
+	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
+	name="viewport" />
+<title layout:title-pattern="$CONTENT_TITLE | $LAYOUT_TITLE"
+	th:text="#{app}"></title>
 <meta th:content="#{page.slogan}" name="description" />
 <meta content="linkin.vn" name="author" />
-<link rel="shortcut icon" th:href="@{/user/images/logo.png}" type="image/png" />
-<link th:href="@{/user/css/bootstrap.min.css}" rel="stylesheet" type="text/css" />
+<link rel="shortcut icon" th:href="@{/user/images/logo.png}"
+	type="image/png" />
+<link th:href="@{/user/css/bootstrap.min.css}" rel="stylesheet"
+	type="text/css" />
 <link th:href="@{/user/css/icons.css}" rel="stylesheet" type="text/css" />
 <link th:href="@{/user/css/style.css}" rel="stylesheet" type="text/css" />
-<link th:href="@{/user/plugins/datatables/dataTables.bootstrap4.min.css}" rel="stylesheet" type="text/css" />
-<link th:href="@{/user/plugins/datatables/buttons.bootstrap4.min.css}" rel="stylesheet" type="text/css" />
-<link th:href="@{/user/css/jquery.datetimepicker.css}" rel="stylesheet" type="text/css">
+<link
+	th:href="@{/user/plugins/datatables/dataTables.bootstrap4.min.css}"
+	rel="stylesheet" type="text/css" />
+<link th:href="@{/user/plugins/datatables/buttons.bootstrap4.min.css}"
+	rel="stylesheet" type="text/css" />
+<link th:href="@{/user/css/jquery.datetimepicker.css}" rel="stylesheet"
+	type="text/css">
 <!-- jQuery  -->
 <script th:src="@{/user/js/jquery.min.js}"></script>
 <script th:src="@{/user/js/popper.min.js}"></script>
@@ -30,14 +41,16 @@
 <script th:src="@{/user/js/jquery.datetimepicker.full.js}"></script>
 <!-- Required datatable js -->
 <script th:src="@{/user/plugins/datatables/jquery.dataTables.min.js}"></script>
-<script th:src="@{/user/plugins/datatables/dataTables.bootstrap4.min.js}"></script>
+<script
+	th:src="@{/user/plugins/datatables/dataTables.bootstrap4.min.js}"></script>
 <script>
 	$.datetimepicker.setLocale('vi');
 	$(function() {
 		$('input.number').keyup(function(event) {
 
 			// skip for arrow keys
-			if (event.which >= 37 && event.which <= 40) return;
+			if (event.which >= 37 && event.which <= 40)
+				return;
 
 			// format number
 			$(this).val(function(index, value) {
@@ -51,9 +64,8 @@
 		});
 	});
 	function formatNumber(value) {
-		return String(value)
-		.replace(/\D/g, "")
-		.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+		return String(value).replace(/\D/g, "").replace(
+				/\B(?=(\d{3})+(?!\d))/g, ".");
 	}
 	function getOnlyDigit(value) {
 		return String(value).replace(/[^0-9]/g, "");

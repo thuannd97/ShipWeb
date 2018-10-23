@@ -12,9 +12,9 @@
 				<li class="list-inline-item dropdown notification-list"><a
 					class="nav-link dropdown-toggle arrow-none waves-effect nav-user"
 					data-toggle="dropdown" href="#" role="button" aria-haspopup="false"
-					aria-expanded="false"> <!-- <img sec:authorize="isAuthenticated()"
-						th:src="@{/user/image/} + ${#authentication.getPrincipal().getAvatar()}"
-						class="rounded-circle" /> -->
+					aria-expanded="false"><img sec:authorize="isAuthenticated()"
+						th:src="@{/images/} + ${#authentication.getPrincipal().getAvatar()}"
+						class="rounded-circle" />
 				</a>
 					<div class="dropdown-menu dropdown-menu-right profile-dropdown ">
 						<a class="dropdown-item" th:href="@{/user/profile}"><i
@@ -22,7 +22,7 @@
 							th:text="#{text.profile}"></span></a> <a class="dropdown-item"
 							th:href="@{/user/doi-mat-khau}"><i
 							class="mdi mdi-lock m-r-5 text-muted"></i> <span
-							th:text="#{text.change.password}"></span></a> <a
+							th:text="#{text.changepassword}"></span></a> <a
 							class="dropdown-item" th:href="@{/dang-xuat}"><i
 							class="mdi mdi-logout m-r-5 text-muted"></i><span
 							th:text="#{text.logout}"></span></a>

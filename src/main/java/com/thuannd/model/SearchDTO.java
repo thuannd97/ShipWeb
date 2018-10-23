@@ -23,7 +23,7 @@ public class SearchDTO implements Serializable {
 	private List<Order> orders;
 
 	public SearchDTO() {
-		start = 0;
+		start = 5;
 		length = MAX_10;
 	}
 
