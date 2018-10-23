@@ -9,7 +9,8 @@
 </head>
 <body>
 	<div layout:fragment="content" th:remove="tag">
-		<div class="row" style="margin-left: 400px; width: 700px; height: 100%;">
+		<div class="row"
+			style="margin-left: 400px; width: 700px; height: 100%;">
 			<div class="col-6">
 				<div class="card m-b-30">
 					<div class="card-body">
@@ -28,7 +29,7 @@
 										<th th:text="#{order.addvanceMoney}"></th>
 										<th th:text="#{order.fee}"></th>
 										<th th:text="#{order.createdDate}"></th>
-										<th th:text="#{text.option}"></th>
+										<th th:text="#{text.accept}"></th>
 									</tr>
 								</thead>
 								<tfoot>
@@ -37,7 +38,7 @@
 										<th th:text="#{order.addvanceMoney}"></th>
 										<th th:text="#{order.fee}"></th>
 										<th th:text="#{order.createdDate}"></th>
-										<th th:text="#{text.option}"></th>
+										<th th:text="#{text.accept}"></th>
 									</tr>
 								</tfoot>
 							</table>
@@ -47,14 +48,34 @@
 			</div>
 		</div>
 
+		<div class="modal fade" id="confirm" tabindex="-1" role="dialog"
+			aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header" th:text="#{order.confirm.message}"></div>
+					<div class="modal-body"></div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal"
+							th:text="#{text.no.title}"></button>
+						<a class="btn btn-danger btn-ok" style="color: white;"
+							th:text="#{text.confirm}"></a>
+						<button type="button" class="btn btn-default" data-dismiss="modal"
+							th:text="#{text.chat}"></button>
+					</div>
+				</div>
+			</div>
+		</div>
+
 		<script type="text/javascript" th:inline="javascript">
 		var vietnameseUrl = [[@{/user/plugins/datatables/Vietnamese.json}]];
 	    var url = [[@{/orders/all}]];
+	    var acceptUrl = [[@{/orders/accept}]];
 	    
 	    var csrf_token = [[${_csrf.token}]];
 	    var searchHolderText = [[#{order.search.holder}]];
 	    
 	    var table;
+	    var id="";
 	    $(document).ready(function() {
 			table = $('#datatable').DataTable( {
 				"processing": true,
@@ -66,6 +87,10 @@
 		            contentType: "application/json",
 		            headers: {'X-CSRF-TOKEN': csrf_token},
 		            data: function ( d ) {
+		            	if($('#content-order') != 'undefined'){
+		            		d.content = $('#content-order').val();
+		            	}
+		            	
 		            	return JSON.stringify( d );
 		            }
 		        },
@@ -79,7 +104,7 @@
 		        "columnDefs": [
 					{
 				       "render": function ( data, type, row ) {
-				           return '<strong class="text-primary">'+ data + '</strong>';
+				           return '<strong class="text-primary" id="content-order">'+ data + '</strong>';
 				       },
 				       "targets": 0
 				   },
@@ -100,6 +125,13 @@
    	                    return '<strong class="text-danger">'+ data + '</strong>';
    	                },
    	                "targets": 3
+   	            },
+   	         	{
+   	                "render": function ( data, type, row ) {
+ 			            var content = '<button class="btn btn-primary ti-hand-point-left" data-toggle="modal" data-target="#confirm" data-fromAdd' + row.fromAdd+ '></button>';
+   	                 	return content;
+   	                },
+   	                "targets": 4
    	            }
 		        ],
 		        "language": {
@@ -107,6 +139,29 @@
 		            searchPlaceholder: searchHolderText
 		        }
 	        });
+			
+			$('#datatable tbody').on( 'click', 'button', function () {
+				var data = table.row( $(this).parents('tr') ).data();
+				id = data.id;
+		    });
+			
+			$('#confirm').on('click', '.btn-ok', function(e) {
+				  var $modalDiv = $(e.delegateTarget);
+				  $modalDiv.addClass('loading');
+				  $.get(acceptUrl + '/' + id).then(function() {
+				     $modalDiv.modal('hide').removeClass('loading');
+				     table.draw();
+				  });
+			});
+			
+			//triggered when modal is about to be shown
+			$('#confirm').on('show.bs.modal', function(e) {
+			    //get data-id attribute of the clicked element
+			    var content = $(e.relatedTarget).data('content-order');
+			    //populate the textbox
+			    $(e.currentTarget).find('div.modal-body').html('<strong>' + content + '</strong>');
+			});
+			
 	    });
 	</script>
 	</div>

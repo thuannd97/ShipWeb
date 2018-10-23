@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.thuannd.dao.OrderDAO;
+import com.thuannd.entity.User;
 import com.thuannd.entity.UserOrder;
 import com.thuannd.model.OrderDTO;
 import com.thuannd.model.SearchOrderDTO;
@@ -43,6 +44,7 @@ public class OrderServiceImpl implements OrderService {
 			orderDTO.setToAdd(order.getToAdd());
 			orderDTO.setAddvanceMoney(order.getAddvanceMoney());
 			orderDTO.setFee(order.getFee());
+			orderDTO.setShipperId(order.getShipper().getId());
 
 			orderDAO.updateOrder(order);
 		}
@@ -70,6 +72,9 @@ public class OrderServiceImpl implements OrderService {
 			orderDTO.setFee(order.getFee());
 			orderDTO.setCreatedDate(DateTimeUtils.formatDate(order.getCreatedDate(), DateTimeUtils.DD_MM_YYYY_HH_MM));
 			orderDTO.setStatus(order.getStatus());
+			if (order.getShipper() != null) {
+				orderDTO.setShipperId(order.getShipper().getId());
+			}
 
 			orderDTOs.add(orderDTO);
 		});
@@ -79,6 +84,39 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	public Long countOrder(SearchOrderDTO searchOrderDTO) {
 		return orderDAO.countOrder(searchOrderDTO);
+	}
+
+	@Override
+	public void changeOrderStatus(OrderDTO orderDTO) {
+		UserOrder userOrder = orderDAO.getOrderById(orderDTO.getId());
+		if (userOrder != null) {
+			if (userOrder.getStatus() == OrderStatus.NEW) {
+				userOrder.setShipper(new User(orderDTO.getShipperId()));
+				userOrder.setStatus(OrderStatus.PICKED_UP);
+				orderDAO.updateOrder(userOrder);
+			}
+		}
+	}
+
+	@Override
+	public OrderDTO getOrderById(Long id) {
+		UserOrder order = orderDAO.getOrderById(id);
+		if (order != null) {
+			OrderDTO orderDTO = new OrderDTO();
+			orderDTO.setId(order.getId());
+			orderDTO.setContent(order.getContent());
+			orderDTO.setFromAdd(order.getFromAdd());
+			orderDTO.setToAdd(order.getToAdd());
+			orderDTO.setAddvanceMoney(order.getAddvanceMoney());
+			orderDTO.setFee(order.getFee());
+			orderDTO.setCreatedDate(DateTimeUtils.formatDate(order.getCreatedDate(), DateTimeUtils.DD_MM_YYYY_HH_MM));
+			orderDTO.setStatus(order.getStatus());
+			if (order.getShipper() != null) {
+				orderDTO.setShipperId(order.getShipper().getId());
+			}
+			return orderDTO;
+		}
+		return null;
 	}
 
 }

@@ -24,6 +24,7 @@ import com.thuannd.model.OrderDTO;
 import com.thuannd.model.ResponseDTO;
 import com.thuannd.model.SearchOrderDTO;
 import com.thuannd.service.OrderService;
+import com.thuannd.utils.OrderStatus;
 
 @Controller
 public class OrderController {
@@ -31,6 +32,7 @@ public class OrderController {
 	@Autowired
 	private OrderService orderService;
 
+	/* start SHOP */
 	@GetMapping("/shop/orders")
 	public String viewFindOrder() {
 		return "admin/shop/list-order";
@@ -72,7 +74,9 @@ public class OrderController {
 		orderService.deleteOrder(id);
 		return new ResponseEntity<String>("ok", HttpStatus.OK);
 	}
+	/* end SHOP */
 
+	/* start USER */
 	@GetMapping("/orders/all")
 	public String viewFindAllOrder() {
 		return "client/user/list-all-order";
@@ -80,13 +84,47 @@ public class OrderController {
 
 	@PostMapping("/orders/all")
 	public ResponseEntity<ResponseDTO<OrderDTO>> findAllOrder(@RequestBody SearchOrderDTO searchOrderDTO) {
-		// find all order
+		// find all order: order.status == NEW
 		ResponseDTO<OrderDTO> responseDTO = new ResponseDTO<OrderDTO>();
+		searchOrderDTO.setStatus(OrderStatus.NEW);
 		responseDTO.setData(orderService.findOrder(searchOrderDTO));
 		responseDTO.setTotalRecords(orderService.countOrder(searchOrderDTO));
 		System.out.println(orderService.countOrder(searchOrderDTO));
 		return new ResponseEntity<ResponseDTO<OrderDTO>>(responseDTO, HttpStatus.OK);
 	}
+	/* end USER */
+
+	/* start SHIPPER */
+	@GetMapping("/orders/accept/{id}")
+	public ResponseEntity<String> acceptOrder(@PathVariable("id") Long id, HttpServletRequest request) {
+		MyPrincipal currentUser = (MyPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		OrderDTO orderDTO = orderService.getOrderById(id);
+		orderDTO.setShipperId(currentUser.getId());
+		orderService.changeOrderStatus(orderDTO);
+		return new ResponseEntity<String>("ok", HttpStatus.OK);
+	}
+
+	@GetMapping("/shipper/orders")
+	public String viewFindAcceptedOrder() {
+		return "admin/shipper/list-accepted-order";
+	}
+
+	@PostMapping("/shipper/orders")
+	public ResponseEntity<ResponseDTO<OrderDTO>> findAllAcceptedOrder(HttpServletRequest request,
+			@RequestBody SearchOrderDTO searchOrderDTO) {
+		MyPrincipal currentUser = (MyPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+		if (request.isUserInRole("ROLE_SHIPPER")) {
+			searchOrderDTO.setStatus(OrderStatus.PICKED_UP);
+			searchOrderDTO.setShipperId(currentUser.getId());
+		}
+
+		ResponseDTO<OrderDTO> responseDTO = new ResponseDTO<OrderDTO>();
+		responseDTO.setData(orderService.findOrder(searchOrderDTO));
+		responseDTO.setTotalRecords(orderService.countOrder(searchOrderDTO));
+		return new ResponseEntity<ResponseDTO<OrderDTO>>(responseDTO, HttpStatus.OK);
+	}
+	/* end SHIPPER */
 
 	private void validate(Object object, Errors errors) {
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "fromAdd", "error.msg.empty.fromAdd");

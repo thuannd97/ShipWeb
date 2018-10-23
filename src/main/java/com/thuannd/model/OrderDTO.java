@@ -15,6 +15,7 @@ public class OrderDTO implements Serializable {
 	private int status;
 	private String createdDate;
 	private Long createdBy;
+	private Long shipperId;
 
 	public OrderDTO() {
 		super();
@@ -90,6 +91,14 @@ public class OrderDTO implements Serializable {
 
 	public void setCreatedBy(Long createdBy) {
 		this.createdBy = createdBy;
+	}
+
+	public Long getShipperId() {
+		return shipperId;
+	}
+
+	public void setShipperId(Long shipperId) {
+		this.shipperId = shipperId;
 	}
 
 }

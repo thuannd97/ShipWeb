@@ -17,4 +17,7 @@ public interface OrderService {
 
 	Long countOrder(SearchOrderDTO searchOrderDTO);
 
+	void changeOrderStatus(OrderDTO orderDTO);
+
+	OrderDTO getOrderById(Long id);
 }

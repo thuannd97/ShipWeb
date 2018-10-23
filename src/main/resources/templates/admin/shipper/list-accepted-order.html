@@ -5,7 +5,7 @@
 	layout:decorator="admin/common/template">
 <head>
 <meta charset="UTF-8" />
-<title th:text="#{admin.management.order.title}"></title>
+<title th:text="#{shipper.list.accepted.order}"></title>
 </head>
 <body>
 	<div layout:fragment="content" th:remove="tag">
@@ -16,7 +16,7 @@
 						<div class="row">
 							<div class="col-md-6 col-sm-6">
 								<h4 class="mt-0 header-title"
-									th:text="#{admin.management.order.title}"></h4>
+									th:text="#{shipper.list.accepted.order}"></h4>
 							</div>
 							<div class="col-md-6 col-sm-6">
 								<a class="pull-right" th:href="@{/shop/add-order}"><img
@@ -34,8 +34,7 @@
 										<th th:text="#{order.toAdd}"></th>
 										<th th:text="#{order.addvanceMoney}"></th>
 										<th th:text="#{order.fee}"></th>
-										<th th:text="#{order.createdDate}"></th>
-										<th th:text="#{text.option}"></th>
+										<th th:text="#{text.done}"></th>
 									</tr>
 								</thead>
 								<tfoot>
@@ -46,8 +45,7 @@
 										<th th:text="#{order.toAdd}"></th>
 										<th th:text="#{order.addvanceMoney}"></th>
 										<th th:text="#{order.fee}"></th>
-										<th th:text="#{order.createdDate}"></th>
-										<th th:text="#{text.option}"></th>
+										<th th:text="#{text.done}"></th>
 									</tr>
 								</tfoot>
 							</table>
@@ -56,27 +54,10 @@
 				</div>
 			</div>
 		</div>
-		<div class="modal fade" id="confirm-delete" tabindex="-1"
-			role="dialog" aria-hidden="true">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-header"
-						th:text="#{order.delete.confirm.message}"></div>
-					<div class="modal-body"></div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal"
-							th:text="#{text.no.title}"></button>
-						<a class="btn btn-danger btn-ok" style="color: white;"
-							th:text="#{text.delete}"></a>
-					</div>
-				</div>
-			</div>
-		</div>
 
 		<script type="text/javascript" th:inline="javascript">
 		var vietnameseUrl = [[@{/user/plugins/datatables/Vietnamese.json}]];
-	    var url = [[@{/shop/orders}]];
-	    var delUrl = [[@{/shop/delete/order}]];
+	    var url = [[@{/shipper/orders}]];
 	    
 	    var csrf_token = [[${_csrf.token}]];
 	    var searchHolderText = [[#{order.search.holder}]];
@@ -108,7 +89,6 @@
 					{"data": "toAdd"},
 					{"data": "addvanceMoney"},
 					{"data": "fee"},
-					{"data": "createdDate"},
 					{"data": "id"}
 		        ],
 		        "columnDefs": [
@@ -144,11 +124,11 @@
    	            },	
 	            {
 	                "render": function ( data, type, row ) {
-	                    var content = '<button class="btn btn-danger ti-trash" data-toggle="modal" data-target="#confirm-delete" data-fromAdd' + row.fromAdd+ '></button>'
+	                    var content = '<button class="btn btn-danger ti-heart" data-toggle="modal" data-target="#confirm-done" data-fromAdd' + row.fromAdd+ '></button>'
 			            return content;
 	                },
 	                "orderable": false,
-	                "targets": 7
+	                "targets": 6
 	            }
 		        ],
 		        "language": {
@@ -157,30 +137,6 @@
 		        }
 	        });
 			
-			$('#datatable tbody').on( 'click', 'button', function () {
-				var data = table.row( $(this).parents('tr') ).data();
-				id = data.id;
-				if ($(this).prop("id") == 'editButt') {
-					window.location.href = editUrl + "/" + id;
-				}
-		    } );
-			
-			$('#confirm-delete').on('click', '.btn-ok', function(e) {
-				  var $modalDiv = $(e.delegateTarget);
-				  $modalDiv.addClass('loading');
-				  $.get(delUrl + '/' + id).then(function() {
-				     $modalDiv.modal('hide').removeClass('loading');
-				     table.draw();
-				  });
-				});
-			
-			//triggered when modal is about to be shown
-			$('#confirm-delete').on('show.bs.modal', function(e) {
-			    //get data-id attribute of the clicked element
-			    var name = $(e.relatedTarget).data('fromAdd');
-			    //populate the textbox
-			    $(e.currentTarget).find('div.modal-body').html('<strong>' + name + '</strong>');
-			});
 	    });
 	</script>
 	</div>

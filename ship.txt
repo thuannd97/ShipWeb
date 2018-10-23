@@ -1,0 +1,13 @@
+*) shop
+- đăng đơn hàng
+- xem đơn hàng đã đăng của mình
+- xem tất cả các đơn hàng(của mình + shop khác)
+- thống kê
+*) shipper
+- xem danh sách tất cả các đơn hàng
+- nhận đơn hàng:
+	+ 1. khi shipper click nhận đơn.
+	+ 2. hệ thống show popup yêu cầu xác nhận.
+	+ 3. shipper click xác nhận.
+	+ 4. hệ thống chuyển đơn đó vào danh sách đơn đã nhận của shipper đó và chuyển trạng thái đơn từ NEW->PICKED_UP
+- xem tất cả đơn hàng mà mình đã nhận.

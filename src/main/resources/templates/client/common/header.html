@@ -28,6 +28,11 @@
 							class="fa fa-dashboard"></i> <span th:text="#{text.management}"
 							th:remove="tag"></span>
 					</a></li>
+					<li sec:authorize="hasAnyRole('ROLE_SHIPPER')"><a
+						th:href="@{/shipper/orders}"> <i
+							class="fa fa-dashboard"></i> <span th:text="#{text.management}"
+							th:remove="tag"></span>
+					</a></li>
 					<li sec:authorize="isAuthenticated()"><a
 						th:href="@{/orders/all}"> <i
 							class="fa fa-dashboard"></i> <span th:text="#{text.listOrderAll}"

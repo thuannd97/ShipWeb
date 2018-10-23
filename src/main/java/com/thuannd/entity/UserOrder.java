@@ -4,9 +4,12 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -29,8 +32,12 @@ public class UserOrder extends Auditable<User> implements Serializable {
 	@Column(name = "fee")
 	private Long fee;
 	@Column(name = "status")
-	private int status;
-	
+	private Integer status;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "shipper")
+	private User shipper;
+
 	public UserOrder() {
 		super();
 	}
@@ -83,12 +90,20 @@ public class UserOrder extends Auditable<User> implements Serializable {
 		this.fee = fee;
 	}
 
-	public int getStatus() {
+	public Integer getStatus() {
 		return status;
 	}
 
-	public void setStatus(int status) {
+	public void setStatus(Integer status) {
 		this.status = status;
+	}
+
+	public User getShipper() {
+		return shipper;
+	}
+
+	public void setShipper(User shipper) {
+		this.shipper = shipper;
 	}
 
 }

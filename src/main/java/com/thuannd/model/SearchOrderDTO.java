@@ -7,6 +7,8 @@ public class SearchOrderDTO extends SearchDTO {
 	private String fromAdd;
 	private String toAdd;
 	private Long createdBy;
+	private Integer status;
+	private Long shipperId;
 
 	public SearchOrderDTO() {
 		super();
@@ -34,6 +36,22 @@ public class SearchOrderDTO extends SearchDTO {
 
 	public void setCreatedBy(Long createdBy) {
 		this.createdBy = createdBy;
+	}
+
+	public Integer getStatus() {
+		return status;
+	}
+
+	public void setStatus(Integer status) {
+		this.status = status;
+	}
+
+	public Long getShipperId() {
+		return shipperId;
+	}
+
+	public void setShipperId(Long shipperId) {
+		this.shipperId = shipperId;
 	}
 
 }

@@ -85,8 +85,11 @@ CREATE TABLE `user_order` (
   `created_by` int(11) DEFAULT NULL,
   `created_date` datetime DEFAULT NULL,
   `status` int(11) DEFAULT NULL,
+  `shipper` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_user_idx` (`created_by`),
+  KEY `fk_shipper_idx` (`shipper`),
+  CONSTRAINT `fk_shipper` FOREIGN KEY (`shipper`) REFERENCES `user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_user` FOREIGN KEY (`created_by`) REFERENCES `user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -97,7 +100,7 @@ CREATE TABLE `user_order` (
 
 LOCK TABLES `user_order` WRITE;
 /*!40000 ALTER TABLE `user_order` DISABLE KEYS */;
-INSERT INTO `user_order` VALUES (2,'Vừa buồn vừa thương con bé. Không biết phải làm như thế nào để con bé khoẻ mạnh sống vui vẻ cùng sen :((( mới ngã lầu 5 xuống chưa dc bao lâu thì có u trên lưng rồi nó tự vỡ ra. Đã đc phẫu thuật. N rồi tưởng chừng tới lúc con bé sắp lành lặn trở lại thì cái u đó di căn xuống vùng nách và n đớn lắm. N k thể làm gì khác. Thuoeng con nhiều lắm','adasdas','ádasd',2123,123,4,'2018-10-23 00:39:00',1),(3,'asdasd','asdasd','asdas',123,123,4,'2018-10-22 23:25:06',1),(4,'eret','rtr','erter',234,2343,4,'2018-10-22 23:27:18',1),(7,'dasd','adasd','asd',12,132,8,'2018-10-23 15:02:08',1),(8,'asd','asd','asd',213,123,8,'2018-10-23 15:04:14',1);
+INSERT INTO `user_order` VALUES (2,'V?a bu?n v?a th??ng con bé. Không bi?t ph?i làm nh? th? nào ?? con bé kho? m?nh s?ng vui v? cùng sen :((( m?i ngã l?u 5 xu?ng ch?a dc bao lâu thì có u trên l?ng r?i nó t? v? ra. ?ã ?c ph?u thu?t. N r?i t??ng ch?ng t?i lúc con bé s?p lành l?n tr? l?i thì cái u ?ó di c?n xu?ng vùng nách và n ??n l?m. N k th? làm gì khác. Thuoeng con nhi?u l?m','adasdas','ádasd',2123,123,4,'2018-10-23 00:39:00',3,10),(3,'asdasd','asdasd','asdas',123,123,4,'2018-10-22 23:25:06',3,10),(4,'eret','rtr','erter',234,2343,4,'2018-10-22 23:27:18',3,10),(7,'dasd','adasd','asd',12,132,8,'2018-10-23 15:02:08',1,NULL),(8,'asd','asd','asd',213,123,8,'2018-10-23 15:04:14',1,NULL);
 /*!40000 ALTER TABLE `user_order` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -114,4 +117,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-10-23 21:13:20
+-- Dump completed on 2018-10-24  0:45:19

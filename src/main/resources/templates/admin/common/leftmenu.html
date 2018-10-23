@@ -45,7 +45,8 @@
 							class="ti-list"></i> <span
 							th:text=#{admin.management.amount.title}> </span>
 					</a></li>
-					<li><a class="waves-effect" th:href="@{/shop/orders}"><i
+					<li sec:authorize="hasAnyRole('ROLE_SHOP')"><a
+						class="waves-effect" th:href="@{/shop/orders}"><i
 							class="ti-list"></i><span
 							th:text="#{admin.management.order.title}"></span></a></li>
 					<li sec:authorize="hasAnyRole('ROLE_SHOP')"><a
@@ -56,6 +57,11 @@
 						th:href="@{/shipper/bao-cao}" class="waves-effect"> <i
 							class="ti-download"></i> <span th:text=#{shipper.report}>
 						</span>
+					</a></li>
+					<li sec:authorize="hasAnyRole('ROLE_SHIPPER')"><a
+						th:href="@{/shipper/orders}" class="waves-effect"> <i
+							class="ti-download"></i> <span
+							th:text=#{shipper.list.accepted.order}> </span>
 					</a></li>
 					<li><a class="waves-effect" th:href="@{/dang-xuat}"><i
 							class="ti-power-off"></i><span th:text="#{text.logout}"></span></a></li>

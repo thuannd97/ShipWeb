@@ -67,10 +67,19 @@ public class OrderDAOImpl implements OrderDAO {
 					"%" + searchOrderDTO.getToAdd() + "%");
 			predicates.add(predicate1);
 		}
-		
+
 		if (searchOrderDTO.getCreatedBy() != null) {
 			Join<UserOrder, User> createdBy = root.join("createdBy", JoinType.INNER);
 			predicates.add(builder.equal(createdBy.get("id"), searchOrderDTO.getCreatedBy()));
+		}
+
+		if (searchOrderDTO.getStatus() != null) {
+			predicates.add(builder.equal(root.get("status"), searchOrderDTO.getStatus()));
+		}
+
+		if (searchOrderDTO.getShipperId() != null) {
+			Join<UserOrder, User> shipper = root.join("shipper", JoinType.INNER);
+			predicates.add(builder.equal(shipper.get("id"), searchOrderDTO.getShipperId()));
 		}
 
 		criteriaQuery.where(predicates.toArray(new Predicate[] {}));
